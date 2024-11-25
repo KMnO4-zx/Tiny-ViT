@@ -119,21 +119,23 @@ class ViT(nn.Module):
         x = self.to_latent(x)  # 恒等映射
         return self.mlp_head(x)  # 通过MLP头
 
-# 创建ViT模型实例
-v = ViT(
-    image_size = 224,
-    patch_size = 16,
-    num_classes = 1000,
-    dim = 768,
-    depth = 6,
-    heads = 8,
-    mlp_dim = 768*4,
-    dropout = 0.1,
-    emb_dropout = 0.1
-)
 
-# 创建一个随机输入图像
-img = torch.randn(4, 3, 224, 224)
-# 预测
-preds = v(img) # (1, 1000)
-print(preds.shape)
+if __name__ == '__main__':
+    # 创建ViT模型实例
+    v = ViT(
+        image_size = 224,
+        patch_size = 16,
+        num_classes = 1000,
+        dim = 768,
+        depth = 6,
+        heads = 8,
+        mlp_dim = 768*4,
+        dropout = 0.1,
+        emb_dropout = 0.1
+    )
+
+    # 创建一个随机输入图像
+    img = torch.randn(4, 3, 224, 224)
+    # 预测
+    preds = v(img) # (1, 1000)
+    print(preds.shape)
