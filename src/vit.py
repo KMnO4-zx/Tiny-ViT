@@ -118,6 +118,20 @@ class ViT(nn.Module):
 
         x = self.to_latent(x)  # 恒等映射
         return self.mlp_head(x)  # 通过MLP头
+    
+    def save_model(self, path):
+        torch.save(self.state_dict(), path)
+        print(f"Model saved to {path}")
+
+    def load_model(self, path):
+        self.load_state_dict(torch.load(path))
+        print(f"Model loaded from {path}")
+
+    def predict(self, img):
+        self.eval()  # Set the model to evaluation mode
+        with torch.no_grad():
+            preds = self(img)
+            return preds.argmax(dim=1)  # Return the class index
 
 
 if __name__ == '__main__':
